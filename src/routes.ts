@@ -85,5 +85,5 @@ export const Routes = [
     route: "/api/create-user",
     controller: UserController,
     action: "createUser"
-  },
+  }
 ]

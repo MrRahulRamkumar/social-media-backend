@@ -1,7 +1,7 @@
 import { getRepository } from "typeorm";
 import { NextFunction, Request, Response } from "express";
 import { User } from "../entity/user.entity";
-import { CreateUserInput, UpdateUserInput } from "../interface/User.interface";
+import { CreateUserInput, UpdateUserInput } from "../interface/user.interface";
 import { Follow } from "../entity/follow.entity";
 import { CreateFollowInput } from "../interface/follow.interface";
 import { Comment } from "../entity/comment.entity";

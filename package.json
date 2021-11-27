@@ -2,7 +2,7 @@
    "name": "backend-test",
    "version": "0.0.1",
    "private": true,
-   "description": "Social media backend",
+   "description": "Awesome project developed with TypeORM.",
    "dependencies": {
       "@types/node": "^12.0.0",
       "bcrypt": "^5.0.1",
