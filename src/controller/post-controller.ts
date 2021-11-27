@@ -18,24 +18,30 @@ export class PostController {
   }
 
   async getPost(request: Request, response: Response, next: NextFunction) {
-    const numLikes = await this.postRepository.createQueryBuilder("post")
-    .select("count(like.post_id) as number_likes")
-    .innerJoin(Like, "like", "like.post_id = post.id")
-    .where("post.id = :id", { id: request.params.id })
-    .groupBy("like.post_id")
-    .getRawOne()
 
-    const numComments = await this.postRepository.createQueryBuilder("post")
-    .select("count(comment.post_id) as number_comments")
-    .innerJoin(Comment, "comment", "comment.post_id = post.id")
-    .where("post.id = :id", { id: request.params.id })
-    .groupBy("comment.post_id")
-    .getRawOne()
+    const post = await this.postRepository.findOne(request.params.id);
+    if(post !== undefined) {
+      const numLikes = await this.postRepository.createQueryBuilder("post")
+      .select("count(like.post_id) as number_likes")
+      .innerJoin(Like, "like", "like.post_id = post.id")
+      .where("post.id = :id", { id: request.params.id })
+      .groupBy("like.post_id")
+      .getRawOne()
+  
+      const numComments = await this.postRepository.createQueryBuilder("post")
+      .select("count(comment.post_id) as number_comments")
+      .innerJoin(Comment, "comment", "comment.post_id = post.id")
+      .where("post.id = :id", { id: request.params.id })
+      .groupBy("comment.post_id")
+      .getRawOne()
 
-    return {
-      number_likes: numLikes === undefined ? 0 : numLikes.number_likes,
-      number_comments: numComments === undefined ? 0 : numComments.number_comments,
-    };
+      return {
+        number_likes: numLikes === undefined ? 0 : numLikes.number_likes,
+        number_comments: numComments === undefined ? 0 : numComments.number_comments,
+      };
+    } else {
+      response.status(404).send("post not found");
+    }
   }
 
   async createPost(request: Request, response: Response, next: NextFunction) {
