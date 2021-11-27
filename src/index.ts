@@ -44,7 +44,8 @@ createConnection()
     })
 
     // start express server
-    app.listen(4001)
+    const port = process.env.PORT || 4001
+    app.listen(port)
     console.log("Express server has started on port 4001.")
   })
   .catch((error) => console.log(error))
