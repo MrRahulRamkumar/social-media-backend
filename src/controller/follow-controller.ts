@@ -8,8 +8,6 @@ export class FollowController {
 
   async createFollow(request: Request, response: Response, next: NextFunction) {
     const userId = response.locals.user_id;
-    console.log(userId);
-    console.log(request.params.id);
 
     if (parseInt(request.params.id) === parseInt(userId)) {
       response.status(400).send("You can't follow yourself");

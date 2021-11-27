@@ -48,7 +48,6 @@ export class PostController {
     };
     const post = new Post();
     post.prepareToCreate(createPostInput);
-    console.log(post);
     return this.postRepository.save(post);
   }
 
@@ -57,7 +56,6 @@ export class PostController {
     const postToRemove = await this.postRepository.findOne({
       where: { id: request.params.id, owner_id: userId },
     });
-    console.log(postToRemove)
     if (postToRemove !== undefined) {
       await this.likeRepository.delete({ post_id: postToRemove.id });
       await this.commentRepository.delete({ post_id: postToRemove.id });
