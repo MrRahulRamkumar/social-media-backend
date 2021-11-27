@@ -1,6 +1,10 @@
 {
-   "type": "sqlite",
-   "database": "backend-test.db",
+   "type": "postgres",
+   "host": "ec2-18-213-133-45.compute-1.amazonaws.com",
+   "port": 5432,
+   "username": "hmupaqasagemti",
+   "password": "6089aa282821a54b866ab699e9bad608c63c26a32889e39423420c6859a4fa88",
+   "database": "dp0rucrtputnu",
    "synchronize": true,
    "logging": false,
    "entities": [
