@@ -14,7 +14,7 @@ Build APIs for a social media platform in the NodeJS web app. The API should sup
     ➡️ Use dummy email & password for authentication. No need to create endpoint for registering new user.
     </aside>
     
-- POST /api/follow/{id} authenticated user would follow user with {id}
+- POST /api/follow/{id} authenticated user would follow user with {id} 
 - POST /api/unfollow/{id} authenticated user would unfollow a user with {id}
 - GET /api/user should authenticate the request and return the respective user profile.
     - RETURN: User Name, number of followers & followings.

@@ -1,6 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
 import { hash, compare } from "bcrypt"
 import { CreateUserInput, UpdateUserInput } from "../interface/user.interface"
+import { Post } from "./post.entity"
+import { Comment } from "./comment.entity"
 
 @Entity()
 export class User {
@@ -18,6 +20,12 @@ export class User {
 
   @Column()
   password: string
+
+  @OneToMany(() => Post, post => post.owner)
+  posts: Post[]
+
+  @OneToMany(() => Comment, Comment => Comment.owner)
+  comments: Comment[]
 
   public async prepareToCreate(input: CreateUserInput) {
     this.first_name = input.first_name

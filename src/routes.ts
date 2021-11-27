@@ -1,6 +1,8 @@
-import { StudentController } from "./controller/student-controller"
 import { UserController } from "./controller/user-controller"
 import { AuthController } from "./controller/auth-controller"
+import { PostController } from "./controller/post-controller"
+import { FollowController } from "./controller/follow-controller"
+import { LikeController } from "./controller/like-controller"
 
 export const ProtectedRoutes = [
   {
@@ -10,12 +12,6 @@ export const ProtectedRoutes = [
     action: "getUser"
   },
   {
-    method: "post",
-    route: "/api/create-user",
-    controller: UserController,
-    action: "createUser"
-  },
-  {
     method: "delete",
     route: "/api/delete-user/:id",
     controller: UserController,
@@ -23,40 +19,58 @@ export const ProtectedRoutes = [
   },
   {
     method: "post",
-    route: "/api/authenticate",
-    controller: AuthController,
-    action: "authenticate"
-  },
-  {
-    method: "get",
-    route: "/student/get-all",
-    controller: StudentController,
-    action: "allStudents",
-  },
-  {
-    method: "get",
-    route: "/student/get-by-id/:id",
-    controller: StudentController,
-    action: "getStudent",
+    route: "/api/comment/:id",
+    controller: UserController,
+    action: "createComment"
   },
   {
     method: "post",
-    route: "/student/create",
-    controller: StudentController,
-    action: "createStudent",
+    route: "/api/posts",
+    controller: PostController,
+    action: "createPost"
   },
   {
-    method: "put",
-    route: "/student/update",
-    controller: StudentController,
-    action: "updateStudent",
+    method: "get",
+    route: "/api/all_posts",
+    controller: PostController,
+    action: "getAllPosts"
   },
   {
     method: "delete",
-    route: "/student/delete/:id",
-    controller: StudentController,
-    action: "removeStudent",
+    route: "/api/posts/:id",
+    controller: PostController,
+    action: "removePost"
   },
+  {
+    method: "get",
+    route: "/api/posts/:id",
+    controller: PostController,
+    action: "getPost"
+  },
+  {
+    method: "post",
+    route: "/api/follow/:id",
+    controller: FollowController,
+    action: "createFollow"
+  },
+  {
+    method: "delete",
+    route: "/api/unfollow/:id",
+    controller: FollowController,
+    action: "removeFollow"
+  },
+  {
+    method: "post",
+    route: "/api/like/:id",
+    controller: LikeController,
+    action: "createLike"
+  },
+  {
+    method: "delete",
+    route: "/api/unlike/:id",
+    controller: LikeController,
+    action: "removeLike"
+  }
 ]
 
 export const Routes = [
@@ -65,5 +79,11 @@ export const Routes = [
     route: "/api/authenticate",
     controller: AuthController,
     action: "authenticate"
+  },
+  {
+    method: "post",
+    route: "/api/create-user",
+    controller: UserController,
+    action: "createUser"
   },
 ]
