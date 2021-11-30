@@ -6,6 +6,7 @@ import { Follow } from "../entity/follow.entity";
 import { CreateFollowInput } from "../interface/follow.interface";
 import { Comment } from "../entity/comment.entity";
 import { CreateCommentInput } from "../interface/comment.interface";
+import { Console } from "console";
 
 export class UserController {
   private userRepository = getRepository(User);
@@ -64,24 +65,28 @@ export class UserController {
   async createUser(request: Request, response: Response, next: NextFunction) {
     const { body: params } = request;
 
-    const user = await this.userRepository.findOne({
-      where: {
-        email: params.email,
-      },
-    });
-
-    if (user === undefined) {
-      const createUserInput: CreateUserInput = {
-        first_name: params.first_name,
-        last_name: params.last_name,
-        email: params.email,
-        password: params.password,
-      };
-      const user = new User();
-      await user.prepareToCreate(createUserInput);
-      return this.userRepository.save(user);
+    if(params.password === undefined && params.email === undefined) {
+      response.status(400).send("Bad request");
     } else {
-      response.status(400).send("User with email already exists");
+      const user = await this.userRepository.findOne({
+        where: {
+          email: params.email,
+        },
+      });
+  
+      if (user === undefined) {
+        const createUserInput: CreateUserInput = {
+          first_name: params.first_name,
+          last_name: params.last_name,
+          email: params.email,
+          password: params.password,
+        };
+        const user = new User();
+        await user.prepareToCreate(createUserInput);
+        return this.userRepository.save(user);
+      } else {
+        response.status(400).send("User with email already exists");
+      }
     }
   }
 
